@@ -1,0 +1,13 @@
+[project]
+name = "CICD-Docker-to-HuggingFace-Template"
+version = "0.1.0"
+description = "A template for deploying a Docker App on Hugging Face using Docker and CI/CD"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "black>=25.1.0",
+    "huggingface-hub>=0.30.2",
+    "pylint>=3.3.6",
+    "streamlit>=1.44.1",
+    "watchdog>=6.0.0",
+]

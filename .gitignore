@@ -1,0 +1,36 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+
+# Python environment
+.venv/
+env/
+
+# Compiled source
+lib/
+
+# Python-specific
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Secrets
+.env
+
+# Jupyter
+notebooks/
+*.ipynb_checkpoints/
+
+# Logs
+logs/
+mlruns/
+
+# Temporary files
+tmp/
+
+# Config
+config/
