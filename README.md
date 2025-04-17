@@ -56,10 +56,9 @@ The `ci_pipeline` job is responsible for running tests and checks on the codebas
   1. **Checkout repository**: uses `actions/checkout@v3`.
   2. **Set up Python**: uses `actions/setup-python@v4` with Python 3.11.
   3. **Install dependencies**: upgrades `pip`, installs `uv`, and syncs.
-  4. **Format code with Black**: formats code in `src/`.
-  5. **Lint code with Pylint**: lints code in `src/` with specific disables.
-  6. **Streamlit app health check**: runs the Streamlit app and checks its health.
-  7. **Cleanup Streamlit process**: kills the Streamlit process.
+  4. **Format code & lint**: formats code and performs linting with `ruff`.
+  5. **App health check**: run the app and checks its health.
+  6. **Cleanup process**: kills the app process.
 
 > [!TIP]
 > Dependencies are managed with `uv` for quick installation and syncing but you can easily change it to `pip` or `poetry` if you prefer.  
