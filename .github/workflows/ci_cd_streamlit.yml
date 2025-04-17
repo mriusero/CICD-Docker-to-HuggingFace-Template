@@ -53,10 +53,11 @@ jobs:
         pkill -f "streamlit"
 
 
-  cd_pipeline:
 
+  cd_pipeline:
       runs-on: ubuntu-latest
       needs: [ci_pipeline]
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
       steps:
 

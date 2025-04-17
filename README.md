@@ -1,7 +1,12 @@
 # CICD-Docker-to-HuggingFace-Template
 
-This template is based on a Streamlit app that is containerized using Docker. It provides a complete CI/CD pipeline for deploying your Streamlit app to Hugging Face Spaces. The template is designed to be easily customizable and can be adapted to fit your specific needs.
+This template provide a complete CI/CD pipeline for deploying your `Streamlit app`or `Gradio app` to Hugging Face Spaces. The template is designed to be easily customizable and can be adapted to fit your specific needs.
 It includes steps for continuous integration (CI) and continuous deployment (CD), ensuring that your code is tested and deployed efficiently.
+
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff)
+![Gradio](https://img.shields.io/badge/Gradio-FFA500?logo=gradio&logoColor=fff)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4757?logo=streamlit&logoColor=fff)
+![HuggingFace](https://img.shields.io/badge/HuggingFace-FFD21E?logo=huggingface&logoColor=000)
 
 ## Prerequisites
 To use this template, you need the following prerequisites:
@@ -29,11 +34,15 @@ The workflow use following secrets for Docker and Hugging Face authentication.
 > 5. Add a new secret with its name `SECRET_NAME` and the associated value `hf_xxx`.
 
 
+---
+
 ## Triggers
-The workflow is triggered by specific events in the GitHub repository. 
+The workflow is triggered by specific events in the GitHub repository.
 Currently, the workflow is set to trigger on the following events:
-- **Push**: On `main` branch.
-- **Pull Request**: On `main` branch.
+- **Push** on `main` branch.
+- **Pull Request** on `main` branch.
+
+**Note**: The CD pipeline will only be executed on a merge to the `main` branch.
 
 > [!TIP]
 > The triggers are defined in the `on` section of the workflow file.
@@ -53,9 +62,7 @@ The `ci_pipeline` job is responsible for running tests and checks on the codebas
   7. **Cleanup Streamlit process**: kills the Streamlit process.
 
 > [!TIP]
-> Here is an example of how to set up the `ci_pipeline` but you can easily change the steps to suit your needs.  
 > Dependencies are managed with `uv` for quick installation and syncing but you can easily change it to `pip` or `poetry` if you prefer.  
-> Format code with `black` and lint with `pylint` to ensure code quality but you can easily change it to `ruff` or other if you prefer.  
 
 ### Continuous Deployment
 The `cd_pipeline` job is responsible for building and deploying the Docker image to Hugging Face Spaces, it follows the steps below:
