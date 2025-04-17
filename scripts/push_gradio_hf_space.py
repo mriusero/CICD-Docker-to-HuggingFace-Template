@@ -1,10 +1,9 @@
 import os
-from huggingface_hub import login, upload_file
-
+from huggingface_hub import login, HfApi
 
 def update_dockerfile(docker_user, repo_name, date):
     """
-    Update the Dockerfile of the HF Space with latest image based on the provided date.
+    Update the Dockerfile.streamlit of the HF Space with the latest image based on the provided date.
     Args:
         docker_user (str): Docker username.
         repo_name (str): Repository name.
@@ -16,15 +15,18 @@ def update_dockerfile(docker_user, repo_name, date):
         ENV PATH=$PATH:/home/user/.local/bin
         WORKDIR /app
         COPY --chown=user . /app/
-        EXPOSE 8501
-        CMD ["uv", "run", "streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+        EXPOSE 7860
+        ENV GRADIO_SERVER_NAME="0.0.0.0"
+        CMD ["uv", "run", "app.py"]
     """
-    with open("../Dockerfile", "w") as f:
+    dockerfile_path = "../Dockerfile"
+    os.makedirs(os.path.dirname(dockerfile_path), exist_ok=True)
+    with open(dockerfile_path, "w") as f:
         f.write(dockerfile_content)
-
+    print(f"Dockerfile.streamlit updated at {dockerfile_path}")
 
 def commit_and_push_on_space(hf_user, hf_space_name, hf_token):
-    """ Commit and push the Dockerfile updated to the Hugging Face space.
+    """ Commit and push the Dockerfile.streamlit updated to the Hugging Face space.
     Args:
         hf_user (str): Hugging Face username.
         hf_space_name (str): Hugging Face space name.
@@ -32,16 +34,17 @@ def commit_and_push_on_space(hf_user, hf_space_name, hf_token):
     """
     try:
         login(token=hf_token)
-        upload_file(
+        api = HfApi()
+        api.upload_file(
             path_or_fileobj="../Dockerfile",
-            path_in_repo="../Dockerfile",
+            path_in_repo="Dockerfile.streamlit",
             repo_id=f"{hf_user}/{hf_space_name}",
             repo_type="space",
+            token=hf_token
         )
-        print("Docker file updated successfully.")
+        print("Dockerfile.streamlit updated successfully.")
     except Exception as e:
-        print(f"Error during Dockerfile update: {e}")
-
+        print(f"Error during Dockerfile.streamlit update: {e}")
 
 if __name__ == "__main__":
     DOCKER_USER = os.getenv("DOCKER_USER", "default_user")
@@ -52,7 +55,7 @@ if __name__ == "__main__":
     HF_API_TOKEN = os.getenv("HF_API_TOKEN", "")
 
     if not HF_API_TOKEN:
-        print("HF token not defined !")
+        print("HF token not defined!")
     else:
         update_dockerfile(DOCKER_USER, REPO_NAME, DATE)
         commit_and_push_on_space(HF_USER, HF_SPACE_NAME, HF_API_TOKEN)

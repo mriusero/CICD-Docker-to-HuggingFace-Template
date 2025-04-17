@@ -28,7 +28,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: '3.12'
 
     - name: Install dependencies
       run: |
@@ -36,17 +36,14 @@ jobs:
         pip install uv
         uv sync
 
-    - name: Format code with Black
+    - name: Lint and format code with Ruff
       run: |
-        uv run black src/
-
-    - name: Lint code with Pylint
-      run: |
-        uv run pylint --disable=R,C src/
+        uv run ruff format src/
+        uv run ruff check src/ --fix
 
     - name: Streamlit app health check
       run: |
-        nohup uv run streamlit run app.py --server.port 8501 --server.headless true &
+        nohup uv run streamlit run streamlit_app.py --server.port 8501 --server.headless true &
         sleep 10  
         curl --fail http://localhost:8501/_stcore/health || exit 1
       shell: bash
@@ -86,4 +83,4 @@ jobs:
           HF_API_TOKEN: ${{secrets.HF_API_TOKEN}}
         run: |
           pip install huggingface_hub
-          python scripts/push_hf_space.py
+          python scripts/push_streamlit_hf_space.py
