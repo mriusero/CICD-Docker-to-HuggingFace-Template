@@ -3,18 +3,12 @@
 This template is based on a Streamlit app that is containerized using Docker. It provides a complete CI/CD pipeline for deploying your Streamlit app to Hugging Face Spaces. The template is designed to be easily customizable and can be adapted to fit your specific needs.
 It includes steps for continuous integration (CI) and continuous deployment (CD), ensuring that your code is tested and deployed efficiently.
 
-
----
-*Contributions are welcome! Feel free to open issues or submit pull requests for any improvements or features you would like to see.*
-
----
-
 ## Prerequisites
 To use this template, you need the following prerequisites:
-- A GitHub repository where you want to set up the CI/CD pipeline.
-- A Docker Hub account to store your Docker images.
-- A Hugging Face account to host your space.
-- A Hugging Face space created and ready to be updated with the Docker image.
+- A **GitHub repository** where you want to set up the CI/CD pipeline.
+- A **Docker Hub account** to store your Docker images.
+- A **Hugging Face account** to host your space.
+- A **Hugging Face space** created and ready to be updated with the Docker image.
 
 ## Environment Variables
 The workflow use following secrets for Docker and Hugging Face authentication.
@@ -73,5 +67,9 @@ The `cd_pipeline` job is responsible for building and deploying the Docker image
   5. **Docker Push**: pushes the Docker image to the Docker repository.
   6. **Update the HF Space**: installs `huggingface_hub` and runs a script to update the Hugging Face space.
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+---
+This project is licensed under the [MIT LICENSE](LICENSE).
+
+*Contributions are welcome! Feel free to open issues or submit pull requests for any improvements or features you would like to see.*  
+
+---
