@@ -53,9 +53,9 @@ The `ci_pipeline` job is responsible for running tests and checks on the codebas
   7. **Cleanup Streamlit process**: kills the Streamlit process.
 
 > [!TIP]
-> Here is an example of how to set up the `ci_pipeline` but you can easily change the steps to suit your needs.
-> Dependencies are managed with `uv` for quick installation and syncing but you can easily change it to `pip` or `poetry` if you prefer.
-> Format code with `black` and lint with `pylint` to ensure code quality but you can easily change it to `ruff` or other if you prefer.
+> Here is an example of how to set up the `ci_pipeline` but you can easily change the steps to suit your needs.  
+> Dependencies are managed with `uv` for quick installation and syncing but you can easily change it to `pip` or `poetry` if you prefer.  
+> Format code with `black` and lint with `pylint` to ensure code quality but you can easily change it to `ruff` or other if you prefer.  
 
 ### Continuous Deployment
 The `cd_pipeline` job is responsible for building and deploying the Docker image to Hugging Face Spaces, it follows the steps below:
