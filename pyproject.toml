@@ -5,8 +5,8 @@ description = "A template for deploying a Docker App on Hugging Face using Docke
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "gradio>=5.25.2",
     "huggingface-hub>=0.30.2",
-    "smolagents[gradio]>=1.13.0",
     "streamlit>=1.44.1",
     "watchdog>=6.0.0",
 ]

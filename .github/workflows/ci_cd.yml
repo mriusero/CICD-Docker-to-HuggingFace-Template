@@ -42,9 +42,26 @@ jobs:
         uv run ruff format src/
         uv run ruff check src/ --fix
 
+    # ----- -- ----- -- ----- -- ----- --
+
+    # Health check for Streamlit
+    #- name: Streamlit app health check
+    #  run: |
+    #    nohup uv run streamlit run app.py --server.port 8501 --server.headless true &
+    #    sleep 10
+    #    curl --fail http://localhost:8501/_stcore/health || exit 1
+    #  shell: bash
+
+    #- name: Cleanup Streamlit process
+    #  run: |
+    #    pkill -f "streamlit"
+
+    # ----- -- ----- -- ----- -- ----- -- ----- -- ----- -- ----- -- -----
+
+    # Health check for Gradio
     - name: Gradio app health check
       run: |
-        nohup uv run gradio_app.py &
+        nohup uv run app.py &
         sleep 10
         curl --fail http://localhost:7860 || exit 1
       shell: bash
@@ -52,6 +69,8 @@ jobs:
     - name: Cleanup Gradio process
       run: |
         pkill -f "uv"
+
+    # ----- -- ----- -- ----- -- ----- --
 
   cd_pipeline:
     runs-on: ubuntu-latest
@@ -82,5 +101,6 @@ jobs:
         HF_SPACE_NAME: ${{secrets.HF_SPACE_NAME}}
         HF_API_TOKEN: ${{secrets.HF_API_TOKEN}}
       run: |
-        pip install huggingface_hub
-        python scripts/push_gradio_hf_space.py
+        uv add huggingface_hub
+        uv run scripts/push_hf_space.py --app='gradio'
+      #  uv run scripts/push_hf_space.py --app='streamlit'
