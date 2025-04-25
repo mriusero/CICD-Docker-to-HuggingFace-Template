@@ -34,7 +34,7 @@ def update_dockerfile(docker_user, repo_name, date, app):
         {env}
         {cmd}
     """
-    with open("../Dockerfile", "w") as f:
+    with open("./Dockerfile", "w") as f:
         f.write(dockerfile_content)
 
 def commit_and_push_on_space(hf_user, hf_space_name, hf_token):
@@ -47,8 +47,8 @@ def commit_and_push_on_space(hf_user, hf_space_name, hf_token):
     try:
         login(token=hf_token)
         upload_file(
-            path_or_fileobj="../Dockerfile",
-            path_in_repo="../Dockerfile",
+            path_or_fileobj="./Dockerfile",
+            path_in_repo="Dockerfile",
             repo_id=f"{hf_user}/{hf_space_name}",
             repo_type="space",
         )
@@ -62,7 +62,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    required_env_vars = ["DOCKER_USER", "REPO_NAME", "HF_USER", "HF_SPACE_NAME", "HF_API_TOKEN"]
+    required_env_vars = ["DOCKER_USER", "REPO_NAME", "HF_USER", "HF_SPACE_NAME", "HF_TOKEN"]
     env_vars = {var: os.getenv(var, "") for var in required_env_vars}
 
     for var, value in env_vars.items():
@@ -71,4 +71,4 @@ if __name__ == "__main__":
             exit(1)
 
     update_dockerfile(env_vars["DOCKER_USER"], env_vars["REPO_NAME"], os.getenv("DATE", "latest"), args.app)
-    commit_and_push_on_space(env_vars["HF_USER"], env_vars["HF_SPACE_NAME"], env_vars["HF_API_TOKEN"])
+    commit_and_push_on_space(env_vars["HF_USER"], env_vars["HF_SPACE_NAME"], env_vars["HF_TOKEN"])
