@@ -22,7 +22,7 @@ The workflow use following secrets for Docker and Hugging Face authentication.
 - `DOCKER_PASSWORD`: your Docker Hub password.
 - `REPO_NAME` : the name of the Docker repository where the Docker image will be pushed.
 - `HF_USER`: your Hugging Face username.
-- `HF_API_TOKEN`: your Hugging Face API token.
+- `HF_TOKEN`: your Hugging Face API token.
 - `HF_SPACE_NAME`: the name of the Hugging Face space where the Docker image will be pushed.
 
 > [!TIP]
