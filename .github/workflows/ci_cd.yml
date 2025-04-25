@@ -7,7 +7,7 @@ env:
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
   REPO_NAME: ${{secrets.REPO_NAME}}
   HF_USER: ${{secrets.HF_USER}}
-  HF_API_TOKEN: ${{secrets.HF_API_TOKEN}}
+  HF_TOKEN: ${{secrets.HF_TOKEN}}
   HF_SPACE_NAME: ${{secrets.HF_SPACE_NAME}}
 
 on:
@@ -58,7 +58,7 @@ jobs:
 
     # ----- -- ----- -- ----- -- ----- -- ----- -- ----- -- ----- -- -----
 
-    # Health check for Gradio
+    # Health check for Gradio (does'nt work if you use 'oauth', login to add)
     - name: Gradio app health check
       run: |
         nohup uv run app.py &
@@ -99,8 +99,9 @@ jobs:
         DATE: ${{ env.DATE }}
         HF_USER: ${{secrets.HF_USER}}
         HF_SPACE_NAME: ${{secrets.HF_SPACE_NAME}}
-        HF_API_TOKEN: ${{secrets.HF_API_TOKEN}}
+        HF_TOKEN: ${{secrets.HF_TOKEN}}
       run: |
+        pip install uv
         uv add huggingface_hub
         uv run scripts/push_hf_space.py --app='gradio'
       #  uv run scripts/push_hf_space.py --app='streamlit'
