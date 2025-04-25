@@ -58,17 +58,17 @@ jobs:
 
     # ----- -- ----- -- ----- -- ----- -- ----- -- ----- -- ----- -- -----
 
-    # Health check for Gradio (does'nt work if you use 'oauth', login to add)
-    - name: Gradio app health check
-      run: |
-        nohup uv run app.py &
-        sleep 10
-        curl --fail http://localhost:7860 || exit 1
-      shell: bash
+    # Health check for Gradio (doesn't work if you use 'oauth' -> HF login to add)
+    #- name: Gradio app health check
+    #  run: |
+    #    nohup uv run app.py &
+    #    sleep 10
+    #    curl --fail http://localhost:7860 || exit 1
+    #  shell: bash
 
-    - name: Cleanup Gradio process
-      run: |
-        pkill -f "uv"
+    #- name: Cleanup Gradio process
+    #  run: |
+    #    pkill -f "uv"
 
     # ----- -- ----- -- ----- -- ----- --
 
